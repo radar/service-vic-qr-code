@@ -34,10 +34,9 @@ export default function Home() {
       .decodeFromImageElement(imageEl.current)
       .then((data: Result) => {
         const url = new URL(data.getText());
-        console.log(url);
         decodeMetadata(url.searchParams.get("metadata"));
       })
-      .catch(() => {
+      .catch((e) => {
         console.log("wups");
       });
   };
@@ -55,6 +54,11 @@ export default function Home() {
 
     const newMetadata = {
       locationId: metadata.locationId,
+      locationName: metadata.locationName,
+      jti: metadata.jti,
+      exp: 1,
+      iat: 1,
+      iss: "",
     };
 
     const encodedMetadata = jwt.sign(newMetadata, "shhh");
